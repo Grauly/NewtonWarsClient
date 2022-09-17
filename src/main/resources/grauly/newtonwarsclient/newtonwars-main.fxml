@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.GridPane?>
+<?import org.controlsfx.control.GridCell?>
+<?import javafx.scene.chart.NumberAxis?>
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="grauly.newtonwarsclient.NewtonWarsGUIController">
+    <TextArea minHeight="400"/>
+    <Line/>
+    <HBox>
+        <TextField HBox.hgrow="ALWAYS"/>
+        <Button alignment="CENTER_RIGHT" text="Send" onAction="#onRawMessageSendButtonPressed"/>
+    </HBox>
+    <Line/>
+    <HBox alignment="CENTER">
+        <Canvas fx:id="canvas" width="300" height="300" />
+        <Line/>
+        <VBox alignment="CENTER" spacing="2">
+            <padding>
+                <Insets right="5" left="5"/>
+            </padding>
+            <Label text="Power"/>
+            <TextField fx:id="powerInputField" text="10"/>
+            <Label text="Angle"/>
+            <TextField fx:id="angleInputField" text="0"/>
+        </VBox>
+        <Button alignment="CENTER" text="Shoot" onAction="#onShootPressed"/>
+    </HBox>
+</VBox>
