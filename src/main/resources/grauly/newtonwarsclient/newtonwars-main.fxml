@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import org.controlsfx.control.GridCell?>
 <?import javafx.scene.chart.NumberAxis?>
-<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="grauly.newtonwarsclient.NewtonWarsGUIController">
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="grauly.newtonwarsclient.NWView">
     <TextArea minHeight="400"/>
     <Line/>
     <HBox>
-        <TextField HBox.hgrow="ALWAYS"/>
+        <TextField HBox.hgrow="ALWAYS" onAction="#onRawMessageSendButtonPressed"/>
         <Button alignment="CENTER_RIGHT" text="Send" onAction="#onRawMessageSendButtonPressed"/>
     </HBox>
     <Line/>
@@ -29,10 +29,21 @@
                 <Insets right="5" left="5"/>
             </padding>
             <Label text="Power"/>
-            <TextField fx:id="powerInputField" text="10"/>
+            <TextField fx:id="powerInputField" text="10" onAction="#onShootPressed"/>
             <Label text="Angle"/>
-            <TextField fx:id="angleInputField" text="0"/>
+            <TextField fx:id="angleInputField" text="0" onAction="#onShootPressed"/>
         </VBox>
         <Button alignment="CENTER" text="Shoot" onAction="#onShootPressed"/>
+    </HBox>
+    <HBox alignment="CENTER" spacing="2">
+        <VBox spacing="5">
+            <Label text="IP"/>
+            <TextField fx:id="ipInputField" minWidth="200"/>
+        </VBox>
+        <VBox spacing="5">
+            <Label text="PORT"/>
+            <TextField fx:id="portInputField"/>
+        </VBox>
+        <Button onAction="#onConnectButtonPressed" text="Connect"/>
     </HBox>
 </VBox>

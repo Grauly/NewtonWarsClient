@@ -10,8 +10,8 @@ import java.io.IOException;
 public class NewtonWarsClient extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(NewtonWarsClient.class.getResource("newtonwars-main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 900);
+        FXMLLoader fxmlLoader = new FXMLLoader(NewtonWarsClient.class.getResource("newtonwars-main-v2.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         stage.setTitle("Newtonwars");
         stage.setScene(scene);
         stage.show();
@@ -19,5 +19,11 @@ public class NewtonWarsClient extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        NWView.stopConnection();
+        super.stop();
     }
 }
