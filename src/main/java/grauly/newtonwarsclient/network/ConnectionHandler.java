@@ -55,22 +55,22 @@ public class ConnectionHandler implements Runnable {
     }
 
     public synchronized void stop() throws InterruptedException, IOException {
-        System.out.println("waiting for threads to close (0/3) - reader");
+        System.out.println("Waiting for threads to close (0/3) - reader");
         if(reader != null)
             reader.close();
         if(readerThread != null)
             readerThread.join();
-        System.out.println("waiting for threads to close (1/3) - writer");
+        System.out.println("Waiting for threads to close (1/3) - writer");
         if(writer != null)
             writer.close();
         if(writerThread != null)
             writerThread.join();
-        System.out.println("waiting for threads to close (2/3) - socket");
+        System.out.println("Waiting for threads to close (2/3) - socket");
         running.set(false);
         if(socket != null)
             socket.close();
         if(selfThread != null)
             selfThread.join();
-        System.out.println("waiting for threads to close (3/3) - done");
+        System.out.println("Waiting for threads to close (3/3) - done");
     }
 }

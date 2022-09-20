@@ -33,7 +33,9 @@ public class NWView {
     }
 
     public void onRawMessageSendButtonPressed(ActionEvent actionEvent) {
-        ConnectionHandler.outgoingMessages.add(rawInputField.getText());
+        var text = rawInputField.getText();
+        ConnectionHandler.outgoingMessages.add(text);
+        mainLog.appendText(text + System.lineSeparator());
         rawInputField.clear();
     }
 
@@ -44,8 +46,12 @@ public class NWView {
             var rawAngleText = angleInputField.getText();
             power = Float.parseFloat(rawPowerText);
             angle = Float.parseFloat(rawAngleText);
-            ConnectionHandler.outgoingMessages.add("v " + power);
-            ConnectionHandler.outgoingMessages.add(String.valueOf(angle));
+            var powerMessage = "v " + power;
+            var angleMessage = String.valueOf(angle);
+            ConnectionHandler.outgoingMessages.add(powerMessage);
+            mainLog.appendText(powerMessage + System.lineSeparator());
+            ConnectionHandler.outgoingMessages.add(angleMessage);
+            mainLog.appendText(angleMessage + System.lineSeparator());
         } catch (NumberFormatException e) {
 
         }
@@ -58,23 +64,7 @@ public class NWView {
                 connectionHandler = new ConnectionHandler(ipInputField.getText(),Integer.parseInt(portInputField.getText()),this);
             }
         } catch (NumberFormatException e) {
-            mainLog.appendText("Invalid port number. Check that it IS a number");
-        }
-    }
-
-    public void onKeyPressed(KeyEvent keyEvent) {
-        float mod = keyEvent.isShiftDown() ? 0.1f : 1f;
-        if(keyEvent.getCode() == KeyCode.UP) {
-            power += mod;
-        }
-        if(keyEvent.getCode() == KeyCode.DOWN) {
-            power -= mod;
-        }
-        if(keyEvent.getCode() == KeyCode.LEFT) {
-            angle += mod;
-        }
-        if(keyEvent.getCode() == KeyCode.RIGHT) {
-            angle -= mod;
+            mainLog.appendText("Invalid port number. Check that it IS a number" + System.lineSeparator());
         }
     }
 
@@ -89,9 +79,38 @@ public class NWView {
         updateCanvas();
     }
 
+    public void onKeyPressed(KeyEvent keyEvent) {
+        try {
+            power = Float.parseFloat(powerInputField.getText());
+            angle = Float.parseFloat(angleInputField.getText());
+        } catch (NumberFormatException e) {
+
+        }
+        var mod = keyEvent.isShiftDown() ? 0.1d : 1d;
+        boolean modified = false;
+        if(keyEvent.getCode().equals(KeyCode.UP)) {
+            angle += mod;
+            modified = true;
+        }
+        if(keyEvent.getCode().equals(KeyCode.DOWN)) {
+            angle -= mod;
+            modified = true;
+        }
+        if(angle < 0) {
+            angle += 360;
+        }
+        if(angle > 360) {
+            angle -= 360;
+        }
+        if(modified) {
+            updateInputs();
+        }
+        updateCanvas();
+    }
+
     public synchronized void postUpdate(String update) {
         updateCanvas();
-        mainLog.appendText(update);
+        mainLog.appendText(update + System.lineSeparator());
     }
 
     private void updateInputs() {
